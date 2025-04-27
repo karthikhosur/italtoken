@@ -33,22 +33,22 @@ We define an ITAL token as a chain of digital signatures on the Stellar blockcha
 sequenceDiagram
     participant User
     participant CVmine
-    participant Validator
+    participant Validator [CVmine]
     participant Stellar
     participant Wallet
     
     User->>CVmine: Complete Activity
-    CVmine->>Validator: Verify Activity
-    Validator->>CVmine: Confirm Validity
+    CVmine->>Validator [CVmine]: Verify Activity
+    Validator [CVmine]->>CVmine: Confirm Validity
     CVmine->>Stellar: Create Transaction
     Stellar->>Stellar: Apply SCP Consensus
     Stellar->>Wallet: Update Balance
     Wallet->>User: Notification
 ```
 
-Each ITAL transaction consists of several critical components working together. The platform's issuing account serves as the source account, while the job seeker's wallet address functions as the destination account. The transaction specifies ITAL tokens as the asset type, with the quantity determined by the specific activity's value. All transactions utilize Stellar's payment operation type, include an activity identifier memo for transparency, and carry the issuing account's digital signature for authentication.
+Each ITAL transaction consists of several critical components working together. The CVmine platform's issuing account serves as the source account, while the job seeker's wallet address functions as the destination account. The transaction specifies ITAL tokens as the asset type, with the quantity determined by the specific activity's value. All transactions utilize Stellar's payment operation type, include an activity identifier memo for transparency, and carry the issuing account's digital signature for authentication.
 
-When a job seeker completes a valuable activity on CVmine, a specific transaction sequence unfolds. First, the system validates that the user activity meets quality and authenticity requirements through automated checks. Next, the system calculates the appropriate token reward based on the activity type and quality metrics. The platform then constructs a Stellar transaction specifying the destination and amount, signs it with its private key, and submits the signed transaction to the Stellar network. Stellar validators confirm the transaction's validity before permanently recording it in the Stellar ledger. Finally, the user's wallet balance updates to reflect the new token amount.
+When a job seeker completes a valuable activity on CVmine, a specific transaction sequence unfolds. First, the CVmine system validates that the user activity meets quality and authenticity requirements through automated checks. Next, the system calculates the appropriate token reward based on the activity type and quality metrics. The CVmine platform then constructs a Stellar transaction specifying the destination and amount, signs it with its private key, and submits the signed transaction to the Stellar network. Stellar validators confirm the transaction's validity before permanently recording it in the Stellar ledger. Finally, the user's wallet balance updates to reflect the new token amount.
 
 The system recognizes and rewards various professional development activities on CVmine with specific token values. Users receive **100 ITAL** for signing up as a jobseeker, and **20 ITAL** for each referral. **1 ITAL** is awarded for each CV download by employers, as well as for applying to job alerts. Jobseekers earn **50 ITAL** for designing a CV. Applications to training programs and CV downloads by training providers are each rewarded with **2 ITAL**.
 
@@ -99,7 +99,7 @@ graph TD
     B -->|Sync Status Update| I[Transaction Sync Flags]
 ```
 
-While the Stellar blockchain provides an efficient foundation for our token economy, creating individual blockchain transactions for every platform activity would be inefficient and costly at scale. Instead, the ITAL platform implements a hybrid approach combining the CVmine transaction ledger with periodic blockchain reconciliation.
+While the Stellar blockchain provides an efficient foundation for our token economy, creating individual blockchain transactions for every platform activity would be inefficient and costly at scale. Instead, the CVmine platform implements a hybrid approach combining the CVmine transaction ledger with periodic blockchain reconciliation.
 
 ### 2.1.1 CVmine Transaction Ledger as Off-chain Pool
 
@@ -136,7 +136,7 @@ The CVmine transaction ledger periodically settles accumulated transactions to t
 
 #### 2.1.2.1 Settlement Timing Strategy
 
-The platform's primary settlement strategy revolves around per-user transaction thresholds:
+The CVmine platform's primary settlement strategy revolves around per-user transaction thresholds:
 
 - **Per-User Batching**: Each user's transactions are tracked independently, with settlement occurring upon reaching 1,000 activities
 - **Variable Frequency**: High-activity users experience more frequent settlements than occasional users
@@ -166,7 +166,7 @@ The CVmine transaction ledger implementation incorporates multiple security laye
 - **Multi-level Encryption**: All stored transactions use AES-256 encryption at rest and TLS 1.3 for data in transit
 - **Digital Signatures**: Every transaction is signed by the platform using Ed25519 signatures, creating a verifiable audit trail
 - **Immutable Append-only Structure**: Like blockchain, the off-chain ledger only allows adding new records, never modifying existing ones
-- **Regular Cryptographic Attestations**: The platform publishes periodic Merkle tree roots of the off-chain ledger to the blockchain
+- **Regular Cryptographic Attestations**: The CVmine platform publishes periodic Merkle tree roots of the off-chain ledger to the blockchain
 - **Comprehensive Audit Logging**: All administrative actions are logged with tamper-evident mechanisms
 - **Hardware Security Module (HSM) Integration**: Critical cryptographic operations use FIPS 140-2 Level 3 compliant HSMs
 
@@ -174,7 +174,7 @@ The CVmine transaction ledger implementation incorporates multiple security laye
 
 The hybrid architecture requires a carefully balanced trust model:
 
-- **Bounded Trust Window**: Users need only trust the platform between settlement periods, not indefinitely
+- **Bounded Trust Window**: Users need only trust the CVmine platform between settlement periods, not indefinitely
 - **Verifiable Pending Transactions**: All off-chain transactions provide cryptographic receipts that users can independently verify
 - **Transparency Portal**: A real-time dashboard shows the current state of the off-chain ledger and pending settlements
 - **Forced Settlement Option**: High-value users can trigger immediate settlement of their transactions for a small fee
@@ -183,13 +183,13 @@ The hybrid architecture requires a carefully balanced trust model:
 
 #### 2.1.3.3 Dispute Resolution
 
-The platform implements a structured dispute resolution process:
+The CVmine platform implements a structured dispute resolution process:
 
 1. **Automated Verification**: Initial disputes trigger automatic verification against cryptographic receipts
 2. **Evidence Collection**: The system preserves transaction records, communications, and audit logs related to the dispute
 3. **Tiered Resolution Process**:
-   - Level 1: Automated reconciliation through the platform
-   - Level 2: Review by platform support personnel
+   - Level 1: Automated reconciliation through the CVmine platform
+   - Level 2: Review by CVmine support personnel
    - Level 3: Assessment by independent third-party arbitrators
 4. **Smart Contract Arbitration**: Critical disputes can leverage Stellar's multisignature capabilities for trustless resolution
 5. **Time-Bounded Process**: All disputes follow strict timelines to ensure prompt resolution
@@ -197,7 +197,7 @@ The platform implements a structured dispute resolution process:
 
 #### 2.1.3.4 Advanced Recovery Procedures
 
-In the event of a major system failure or compromise, the platform implements these recovery procedures:
+In the event of a major system failure or compromise, the CVmine platform implements these recovery procedures:
 
 1. **Immediate Suspension**: Upon detection of anomalies, the system temporarily suspends new off-chain transactions
 2. **State Verification**: All user balances are verified against the last blockchain settlement and cryptographic receipts
@@ -241,7 +241,7 @@ This approach solves the double-spending problem without requiring a trusted cen
 
 ### 4.1 Overview of the Stellar Consensus Protocol
 
-The ITAL token platform utilizes the Stellar Consensus Protocol (SCP) as its underlying consensus mechanism. SCP represents a significant advancement over traditional blockchain consensus models, providing several crucial advantages for our professional development incentive system.
+The CVmine platform utilizes the Stellar Consensus Protocol (SCP) as its underlying consensus mechanism for ITAL tokens. SCP represents a significant advancement over traditional blockchain consensus models, providing several crucial advantages for our professional development incentive system.
 
 ```mermaid
 graph TD
@@ -293,7 +293,7 @@ This architecture enables what is termed "federated voting," a multi-phase conse
 
 ```mermaid
 sequenceDiagram
-    participant V1 as Validator 1
+    participant V1 as Validator 1 [CVmine]
     participant V2 as Validator 2
     participant V3 as Validator 3
     
@@ -325,20 +325,20 @@ SCP provides formal mathematical guarantees for two critical properties:
 
 1. **Safety**: The protocol ensures that contradictory statements are never confirmed. This means that once consensus is reached on a transaction, it cannot be reversed or contradicted, preventing double-spending and maintaining ledger integrity.
 
-2. **Liveness**: Under conditions where interconnected quorum slices exist and sufficient nodes are functioning correctly, the system will eventually confirm transactions. This ensures that the ITAL token platform can continue processing activity rewards even during partial network disruptions.
+2. **Liveness**: Under conditions where interconnected quorum slices exist and sufficient nodes are functioning correctly, the system will eventually confirm transactions. This ensures that the CVmine platform can continue processing ITAL token activity rewards even during partial network disruptions.
 
 #### 4.2.3 Technical Implementation in the ITAL Ecosystem
 
-For the ITAL token ecosystem, we implement SCP with the following technical considerations:
+For the ITAL token ecosystem on CVmine, SCP is implemented with the following technical considerations:
 
-- **Validator Node Configuration**: Our initial network includes strategic validator nodes operated by the platform and trusted partners, with configurations that ensure robust quorum intersection
+- **Validator Node Configuration**: Our initial network includes strategic validator nodes operated by CVmine and trusted partners, with configurations that ensure robust quorum intersection
 - **Quorum Slice Configuration**: Each validator is configured with quorum slices that prioritize high-availability nodes with strong security practices
-- **Tiered Trust Structure**: We implement a hierarchical approach to quorum slice configuration that balances decentralization with operational reliability
+- **Tiered Trust Structure**: CVmine implements a hierarchical approach to quorum slice configuration that balances decentralization with operational reliability
 - **Monitoring Systems**: Continuous monitoring of quorum health and network connectivity ensures early detection of potential consensus issues
 
 #### 4.2.3.1 Validator Incentives
 
-To ensure robust, decentralized network operation, the ITAL ecosystem implements a multi-faceted validator incentive structure:
+To ensure robust, decentralized network operation, the CVmine platform implements a multi-faceted validator incentive structure for ITAL tokens:
 
 - **Transaction Fee Sharing**: Validators receive a portion of the minimal Stellar transaction fees for processing ITAL token operations
 - **Participation Rewards**: A dedicated allocation of 0.5% of total ITAL supply is reserved for validator rewards distributed monthly
@@ -360,7 +360,7 @@ SCP enables exceptional performance metrics that are crucial for a responsive pr
 - **Energy Efficiency**: Minimal computational requirements without mining
 - **Transaction Cost**: Approximately 0.00001 XLM per transaction
 
-These performance characteristics make SCP ideal for the ITAL token platform, as it allows:
+These performance characteristics make SCP ideal for the CVmine platform's ITAL token system, as it allows:
 - Real-time distribution of activity rewards
 - Scalable user onboarding without transaction bottlenecks
 - Economically viable microtransactions for small activity rewards
@@ -368,13 +368,13 @@ These performance characteristics make SCP ideal for the ITAL token platform, as
 
 ### 4.4 Decentralization and Trust Considerations
 
-While leveraging the benefits of SCP, we acknowledge important considerations regarding trust configuration:
+While leveraging the benefits of SCP, CVmine acknowledges important considerations regarding trust configuration:
 
 1. **Quorum Configuration Risk**: Improper configuration of quorum slices could potentially lead to network splits or centralization
-2. **Trust Topology Monitoring**: We continuously analyze the network's trust configuration to prevent centralization risks
-3. **Gradual Decentralization**: Our roadmap includes progressive expansion of the validator set to increase decentralization while maintaining network stability
+2. **Trust Topology Monitoring**: CVmine continuously analyzes the network's trust configuration to prevent centralization risks
+3. **Gradual Decentralization**: The roadmap includes progressive expansion of the validator set to increase decentralization while maintaining network stability
 
-To mitigate these considerations, we implement:
+To mitigate these considerations, CVmine implements:
 - Transparent publication of all validator information
 - Regular trust topology audits
 - Documented guidelines for validator selection and quorum configuration
@@ -382,14 +382,14 @@ To mitigate these considerations, we implement:
 
 ### 4.5 SCP Evolution
 
-As the ITAL token ecosystem evolves, we will implement advanced features of the Stellar Consensus Protocol:
+As the ITAL token ecosystem evolves on CVmine, advanced features of the Stellar Consensus Protocol will be implemented:
 
 1. **Tiered Quorums**: Different security requirements for different transaction types
 2. **Dynamic Membership**: Protocols for safely adding and removing validators
 3. **Enhanced Monitoring**: Advanced analytics to ensure optimal quorum health
 4. **Formal Verification**: Ongoing verification of consensus security properties
 
-By building on this sophisticated consensus protocol, the ITAL platform ensures secure, efficient, and cost-effective distribution of rewards to users participating in job-seeking activities on CVmine, without compromising on decentralization principles or transaction validation integrity.
+By building on this sophisticated consensus protocol, the CVmine platform ensures secure, efficient, and cost-effective distribution of ITAL token rewards to users participating in job-seeking activities, without compromising on decentralization principles or transaction validation integrity.
 
 ## 5. Network
 
@@ -408,7 +408,7 @@ graph TD
     F -->|Update Sync Status| J[Mark as Synced]
 ```
 
-First, new user activities are recorded in the CVmine platform. Each activity is independently verified whether it complies with the platform's rules. Once approved, the system records a token issuance transaction in the transaction ledger. These transactions are then batched and submitted to the Stellar network. Upon confirmation, tokens are securely transferred to the user's wallet, and the transaction records are updated with the blockchain transaction ID. This incentive mechanism encourages honest participation by making legitimate engagement more rewarding than attempts to game the system. Community accountability is strengthened through peer review, while the Stellar blockchain ensures complete transparency and traceability of all transactions.
+First, new user activities are recorded in the CVmine platform. Each activity is independently verified by CVmine whether it complies with the platform's rules. Once approved, the system records a token issuance transaction in the transaction ledger. These transactions are then batched and submitted to the Stellar network. Upon confirmation, tokens are securely transferred to the user's wallet, and the transaction records are updated with the blockchain transaction ID. This incentive mechanism encourages honest participation by making legitimate engagement more rewarding than attempts to game the system. Community accountability is strengthened through peer review, while the Stellar blockchain ensures complete transparency and traceability of all transactions.
 
 ## 6. Wallet Infrastructure
 
@@ -444,7 +444,7 @@ The CVmine platform provides an intuitive interface for users to view their ITAL
 
 ### 6.1 Wallet Migration Strategy
 
-The platform's migration from custodial to non-custodial wallets follows a carefully structured approach:
+The CVmine platform's migration from custodial to non-custodial wallets follows a carefully structured approach:
 
 #### 6.1.1 Phased Implementation
 
@@ -459,7 +459,7 @@ The platform's migration from custodial to non-custodial wallets follows a caref
 The migration process preserves user assets and identity through these security-focused procedures:
 
 - **Secure Key Generation**: Non-custodial private keys are generated client-side through secure key derivation functions
-- **Multi-signature Transition**: During migration, accounts temporarily use a 2-of-2 multisignature structure requiring both user and platform authorization
+- **Multi-signature Transition**: During migration, accounts temporarily use a 2-of-2 multisignature structure requiring both user and CVmine platform authorization
 - **Verifiable Recovery Options**: Users configure recovery mechanisms with optional trusted contacts
 - **Progressive Security Model**: Users gradually receive more control as they demonstrate security awareness
 - **Interface Consistency**: The user experience remains similar, despite the underlying custody changes
@@ -467,7 +467,7 @@ The migration process preserves user assets and identity through these security-
 
 #### 6.1.3 User Experience Considerations
 
-To ensure successful migration, the platform addresses key user experience factors:
+To ensure successful migration, the CVmine platform addresses key user experience factors:
 
 - **Simplified Key Management**: Integration with user-friendly key management solutions and hardware wallets
 - **Guided Setup Process**: Step-by-step wizard for wallet setup with verification checkpoints
@@ -514,7 +514,7 @@ graph TD
     M --> T[CV Download by Trainer: 2 ITAL]
 ```
 
-The token holds utility in various ways on the CVmine platform—users can spend ITAL for premium certification programs, enhanced job profile features, access to training resources, and membership tiers that unlock additional benefits based on their holdings. To enforce scarcity and maintain long-term value, the system incorporates several mechanisms: token generation is exclusively tied to verifiable human effort, 2% of tokens used for premium services are burned to reduce supply, and users are rewarded for maintaining minimum token balances. Furthermore, ITAL's value stability is maintained through a reserve fund holding 5% of the initially minted tokens, a buy-back program funded by platform revenue to stabilize market fluctuations, and staking rewards offering an annual yield to users who lock their tokens for set periods.
+The token holds utility in various ways on the CVmine platform—users can spend ITAL for premium certification programs, enhanced job profile features, access to training resources, and membership tiers that unlock additional benefits based on their holdings. To enforce scarcity and maintain long-term value, the system incorporates several mechanisms: token generation is exclusively tied to verifiable human effort, 2% of tokens used for premium services are burned to reduce supply, and users are rewarded for maintaining minimum token balances. Furthermore, ITAL's value stability is maintained through a reserve fund holding 5% of the initially minted tokens, a buy-back program funded by CVmine platform revenue to stabilize market fluctuations, and staking rewards offering an annual yield to users who lock their tokens for set periods.
 
 ### 7.1 CVmine Reward Structure
 
@@ -551,7 +551,7 @@ graph TD
 
 Each activity on the CVmine platform generates a specific ITAL token reward, creating a comprehensive incentive system that rewards all forms of positive engagement. The reward structure is designed to recognize both small, frequent activities and significant milestone achievements, ensuring users are continuously motivated to engage with the platform in meaningful ways.
 
-The transaction ledger maintains detailed records of all token-generating activities, including the specific activity category, token amount, and transaction status. This detailed tracking enables precise accounting of token distribution while providing valuable analytics regarding user engagement patterns.
+The transaction ledger maintained by CVmine provides detailed records of all token-generating activities, including the specific activity category, token amount, and transaction status. This detailed tracking enables precise accounting of token distribution while providing valuable analytics regarding user engagement patterns.
 
 ## 8. Privacy
 
@@ -571,11 +571,11 @@ graph TD
     N[Blockchain Record] -->|Contains| O[Wallet Address Only]
 ```
 
-The ITAL token platform prioritizes user privacy by adopting a more secure and user-centric approach compared to traditional job-seeking systems. Instead of exposing sensitive personal information, the CVmine platform allows users to interact through pseudonymous wallet addresses. This ensures that individuals can earn rewards and participate in the ecosystem without fully revealing their identity or personal data. Users have complete control over what information they choose to share, and rewards for platform activity do not require full profile visibility. 
+The ITAL token system on CVmine prioritizes user privacy by adopting a more secure and user-centric approach compared to traditional job-seeking systems. Instead of exposing sensitive personal information, the CVmine platform allows users to interact through pseudonymous wallet addresses. This ensures that individuals can earn rewards and participate in the ecosystem without fully revealing their identity or personal data. Users have complete control over what information they choose to share, and rewards for platform activity do not require full profile visibility. 
 
 The CVmine transaction ledger maintains privacy by associating activities with pseudonymous identifiers rather than directly linking to personally identifiable information. When transactions are settled to the blockchain, only the wallet addresses and token amounts are recorded, maintaining user privacy at the blockchain level.
 
-Despite this commitment to privacy, the platform maintains regulatory compliance by implementing Know Your Customer (KYC) procedures specifically for token withdrawal, ensuring both security and adherence to legal standards.
+Despite this commitment to privacy, the CVmine platform maintains regulatory compliance by implementing Know Your Customer (KYC) procedures specifically for token withdrawal, ensuring both security and adherence to legal standards.
 
 ## 9. Calculations
 
@@ -597,9 +597,9 @@ graph LR
     H -->|u×a×r > u×s×c| K[Inflationary]
 ```
 
-To maintain the economic stability of the ITAL token ecosystem, a mathematical model is used to balance token distribution with service usage. The platform calculates equilibrium based on the equation: *u × a × r = u × s × c*, where *u* represents the number of users, *a* is the average number of activities performed, *r* is the reward rate, *s* is the service utilization rate, and *c* is the average cost of services. This formula ensures that the rate at which tokens are distributed through user activity on CVmine is matched by the rate at which tokens are used within the platform. For long-term sustainability, the platform aims to keep the reward distribution at or below the token consumption rate (*u × a × r ≤ u × s × c*), preventing inflation and maintaining the token's value as the user base grows.
+To maintain the economic stability of the ITAL token ecosystem, a mathematical model is used to balance token distribution with service usage. The CVmine platform calculates equilibrium based on the equation: *u × a × r = u × s × c*, where *u* represents the number of users, *a* is the average number of activities performed, *r* is the reward rate, *s* is the service utilization rate, and *c* is the average cost of services. This formula ensures that the rate at which tokens are distributed through user activity on CVmine is matched by the rate at which tokens are used within the platform. For long-term sustainability, the platform aims to keep the reward distribution at or below the token consumption rate (*u × a × r ≤ u × s × c*), preventing inflation and maintaining the token's value as the user base grows.
 
-The CVmine transaction ledger provides valuable data for continuously monitoring and adjusting this economic balance. By analyzing the rate of token generation across different activity types and the patterns of token usage for premium services, the platform can make data-driven adjustments to reward rates and service costs to maintain optimal economic equilibrium.
+The CVmine transaction ledger provides valuable data for continuously monitoring and adjusting this economic balance. By analyzing the rate of token generation across different activity types and the patterns of token usage for premium services, the CVmine platform can make data-driven adjustments to reward rates and service costs to maintain optimal economic equilibrium.
 
 ## 10. CVmine Integration Architecture
 
@@ -712,6 +712,6 @@ In conclusion, we have introduced a decentralized incentive-based system integra
 
 The integration of ITAL tokens with the CVmine platform creates a virtuous cycle where user activities generate tangible rewards, which in turn incentivize further engagement. The comprehensive transaction ledger provides the technical foundation for this integration, enabling immediate token rewards while leveraging the security and transparency of the Stellar blockchain.
 
-The ITAL ecosystem establishes a robust framework for recognizing and incentivizing individual effort, while simultaneously laying the foundation for a sustainable, scalable, and self-sufficient digital environment. Although the platform initially verifies user activities to maintain integrity, future iterations aim to reduce centralized oversight by incorporating decentralized verification methods, such as peer reviews and reputation-based systems. This evolution will further empower users and enhance trust, accountability, and autonomy within the ecosystem.
+The ITAL ecosystem establishes a robust framework for recognizing and incentivizing individual effort, while simultaneously laying the foundation for a sustainable, scalable, and self-sufficient digital environment. Although the CVmine platform initially verifies user activities to maintain integrity, future iterations aim to reduce centralized oversight by incorporating decentralized verification methods, such as peer reviews and reputation-based systems. This evolution will further empower users and enhance trust, accountability, and autonomy within the ecosystem.
 
 By rewarding job seekers for their contributions to the platform, CVmine and ITAL transform the traditional job search process into a value-generating activity for all participants. This innovative approach aligns incentives between job seekers, employers, and the platform itself, creating a more equitable and efficient professional development ecosystem.
