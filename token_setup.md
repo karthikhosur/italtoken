@@ -115,7 +115,7 @@ async function createDistributionTrustline() {
     })
       .addOperation(StellarSdk.Operation.changeTrust({
         asset: italAsset,
-        limit: '6000000000000' // 6 trillion (your max supply)
+        limit: '600000000000' // 6 trillion (your max supply)
       }))
       .setTimeout(30)
       .build();
