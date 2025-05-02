@@ -293,10 +293,10 @@ NETWORK_PASSPHRASE="Public Global Stellar Network ; September 2015"
 
 # Organization Information
 [DOCUMENTATION]
-ORG_NAME="CVmine"
-ORG_URL="https://cvmine.com"
+ORG_NAME="Talentmicro Innovations"
+ORG_URL="https://talentmicro.com"
 ORG_DESCRIPTION="Professional development incentive system for job seekers"
-ORG_LOGO="https://cvmine.com/logo.png"
+ORG_LOGO="https://talentmicro.com/logo.png"
 ORG_PHYSICAL_ADDRESS="Your address"
 ORG_OFFICIAL_EMAIL="contact@cvmine.com"
 
@@ -304,12 +304,12 @@ ORG_OFFICIAL_EMAIL="contact@cvmine.com"
 [[CURRENCIES]]
 code="ITAL"
 issuer="ISSUER_PUBLIC_KEY_HERE"
-display_decimals=7
+display_decimals=5
 name="ITAL Token"
 desc="A peer-to-peer incentive system for professional development"
 conditions="The total supply is limited to 6 trillion ITAL tokens. Tokens are earned through verifiable activities on the CVmine platform."
 image="https://cvmine.com/ital-logo.png"
-fixed_number=6000000000000
+fixed_number=600000000000
 ```
 
 ## 9. Create a Service for User Wallet Operations
