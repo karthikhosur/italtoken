@@ -1,4 +1,4 @@
-# ITAL Token: A Peer-to-Peer Incentive System with Hybrid Off-Chain/On-Chain Architecture for Professional Development on CVmine
+# ITAL Token: A Peer-to-Peer Incentive System for Professional Development on CVmine
 
 ## Abstract
 
