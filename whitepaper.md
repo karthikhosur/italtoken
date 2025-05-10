@@ -558,7 +558,7 @@ The migration process preserves user assets and identity through secure key gene
 
 ```mermaid
 pie
-    title "ITAL Token Initial Distribution (200B Tokens)"
+    title "ITAL Token Initial Distribution"
     "Job Seekers" : 51
     "Employers" : 39
     "Mentors/Trainers" : 5
